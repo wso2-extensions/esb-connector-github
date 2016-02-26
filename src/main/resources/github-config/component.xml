@@ -18,10 +18,10 @@
 -->
 
 <component name="github-config" type="synapse/template">
-  <subComponents>
-    <component name="init">
-      <file>init.xml</file>
-      <description>Config operation</description>
-    </component>
-  </subComponents>
+    <subComponents>
+        <component name="init">
+            <file>init.xml</file>
+            <description>Config operation</description>
+        </component>
+    </subComponents>
 </component>

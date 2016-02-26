@@ -18,37 +18,37 @@
 
 <template name="listCollaborators" xmlns="http://ws.apache.org/ns/synapse">
 
-	<parameter name="owner" description="The name of the owner of the repository." />
-	<parameter name="repo" description="The name of the repository." />
+    <parameter name="owner" description="The name of the owner of the repository."/>
+    <parameter name="repo" description="The name of the repository."/>
 
-	<sequence>
-	
-		<property name="uri.var.owner" expression="$func:owner" />
-		<property name="uri.var.repo" expression="$func:repo" />
+    <sequence>
 
-		<call>
-			<endpoint>
-				<http method="get"
-					uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/collaborators" />
-			</endpoint>
-		</call>
+        <property name="uri.var.owner" expression="$func:owner"/>
+        <property name="uri.var.repo" expression="$func:repo"/>
 
-		<!-- Remove response custom header information -->
-		<header name="Access-Control-Expose-Headers" scope="transport" action="remove" />
-		<header name="X-RateLimit-Remaining" scope="transport" action="remove" />
-		<header name="X-XSS-Protection" scope="transport" action="remove" />
-		<header name="X-RateLimit-Reset" scope="transport" action="remove" />
-		<header name="X-GitHub-Request-Id" scope="transport" action="remove" />
-		<header name="X-Content-Type-Options" scope="transport" action="remove" />
-		<header name="X-Frame-Options" scope="transport" action="remove" />
-		<header name="X-OAuth-Scopes" scope="transport" action="remove" />
-		<header name="X-Accepted-OAuth-Scopes" scope="transport" action="remove" />
-		<header name="X-GitHub-Media-Type" scope="transport" action="remove" />
-		<header name="X-Served-By" scope="transport" action="remove" />
-		<header name="X-RateLimit-Limit" scope="transport" action="remove" />
-		<header name="Vary" scope="transport" action="remove" />
-		<header name="Access-Control-Allow-Credentials" scope="transport" action="remove" />
-		<header name="Content-Security-Policy" scope="transport" action="remove" />		
+        <call>
+            <endpoint>
+                <http method="get"
+                      uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/collaborators"/>
+            </endpoint>
+        </call>
 
-	</sequence>
+        <!-- Remove response custom header information -->
+        <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
+        <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
+        <header name="X-XSS-Protection" scope="transport" action="remove"/>
+        <header name="X-RateLimit-Reset" scope="transport" action="remove"/>
+        <header name="X-GitHub-Request-Id" scope="transport" action="remove"/>
+        <header name="X-Content-Type-Options" scope="transport" action="remove"/>
+        <header name="X-Frame-Options" scope="transport" action="remove"/>
+        <header name="X-OAuth-Scopes" scope="transport" action="remove"/>
+        <header name="X-Accepted-OAuth-Scopes" scope="transport" action="remove"/>
+        <header name="X-GitHub-Media-Type" scope="transport" action="remove"/>
+        <header name="X-Served-By" scope="transport" action="remove"/>
+        <header name="X-RateLimit-Limit" scope="transport" action="remove"/>
+        <header name="Vary" scope="transport" action="remove"/>
+        <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
+        <header name="Content-Security-Policy" scope="transport" action="remove"/>
+
+    </sequence>
 </template>

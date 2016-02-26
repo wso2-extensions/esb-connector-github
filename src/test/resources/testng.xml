@@ -31,7 +31,7 @@
             <package name="org.wso2.carbon.connector.integration.test.github"/>
         </packages>
     </test>
-    
+
 
 </suite>
 

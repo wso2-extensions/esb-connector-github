@@ -18,10 +18,10 @@
 -->
 
 <component name="github-users" type="synapse/template">
-	<subComponents>
-		<component name="getUser">
-			<file>getUser.xml</file>
-			<description>Retrieves a single user</description>
-		</component>
-	</subComponents>
+    <subComponents>
+        <component name="getUser">
+            <file>getUser.xml</file>
+            <description>Retrieves a single user</description>
+        </component>
+    </subComponents>
 </component>
