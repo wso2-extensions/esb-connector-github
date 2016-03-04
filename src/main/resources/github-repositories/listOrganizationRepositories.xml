@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="listOrganizationRepositories" xmlns="http://ws.apache.org/ns/synapse">
+  <parameter name="org"/>
+  <parameter name="type"/>
+  <sequence>
+    <property expression="$func:org" name="uri.var.org" scope="default" type="STRING"/>
+    <property expression="$func:type" name="uri.var.type"
+      scope="default" type="STRING"/>
+    <!-- type header will be set, if provided by the user -->
+    <filter regex="true" source="boolean(get-property('uri.var.type'))">
+      <then>
+        <call>
+          <endpoint>
+            <http method="get" trace="disable" uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/commits?type={+uri.var.type}"/>
+          </endpoint>
+        </call>
+      </then>
+      <else>
+        <call>
+          <endpoint>
+            <http method="get" trace="disable" uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos"/>
+          </endpoint>
+        </call>
+      </else>
+    </filter>
+  </sequence>
+</template>
