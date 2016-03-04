@@ -17,44 +17,30 @@
 ~  under the License.
 -->
 
-<template
-        name="listOrganizationRepositories"
-        xmlns="http://ws.apache.org/ns/synapse">
-    <parameter
-            name="org"
-            description="Name of the organization"/>
-    <parameter
-            name="type"
-            description="Type of the repositories.Can be one of all, public, private, forks, sources, member. Default: all"/>
+<template name="listOrganizationRepositories" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="org" description="Name of the organization" />
+    <parameter name="type"
+               description="Type of the repositories.Can be one of all, public, private, forks, sources, member. Default: all" />
     <sequence>
-        <property
-                expression="$func:org"
-                name="uri.var.org"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:type"
-                name="uri.var.type"
-                scope="default"
-                type="STRING"/>
+        <property expression="$func:org" name="uri.var.org" scope="default"
+                  type="STRING" />
+        <property expression="$func:type" name="uri.var.type" scope="default"
+                  type="STRING" />
         <!-- type header will be set, if provided by the user -->
-        <filter regex="true"
-                source="boolean(get-property('uri.var.type'))">
+        <filter regex="true" source="boolean(get-property('uri.var.type'))">
             <then>
                 <call>
                     <endpoint>
-                        <http method="get"
-                              trace="disable"
-                              uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/commits?type={+uri.var.type}"/>
+                        <http method="get" trace="disable"
+                              uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/commits?type={+uri.var.type}" />
                     </endpoint>
                 </call>
             </then>
             <else>
                 <call>
                     <endpoint>
-                        <http method="get"
-                              trace="disable"
-                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos"/>
+                        <http method="get" trace="disable"
+                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos" />
                     </endpoint>
                 </call>
             </else>

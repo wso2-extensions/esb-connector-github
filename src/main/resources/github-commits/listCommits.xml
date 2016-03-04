@@ -17,79 +17,44 @@
 ~  under the License.
 -->
 
-<template
-        name="listCommits"
-        xmlns="http://ws.apache.org/ns/synapse">
-    <parameter
-            name="owner"
-            description="Owner of the repository"/>
-    <parameter
-            name="repo"
-            description="Name of the repository"/>
-    <parameter
-            name="sha"
-            description="SHA or branch to start listing commits from. Default: the repository’s default branch (usually master) "/>
-    <parameter
-            name="path"
-            description="Only commits containing this file path will be returned"/>
-    <parameter
-            name="author"
-            description="GitHub login or email address by which to filter by commit author"/>
-    <parameter
-            name="since"
-            description="Only commits after this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"/>
-    <parameter
-            name="until"
-            description="Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"/>
+<template name="listCommits" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="owner" description="Owner of the repository" />
+    <parameter name="repo" description="Name of the repository" />
+    <parameter name="sha"
+               description="SHA or branch to start listing commits from. Default: the repository’s default branch (usually master) " />
+    <parameter name="path"
+               description="Only commits containing this file path will be returned" />
+    <parameter name="author"
+               description="GitHub login or email address by which to filter by commit author" />
+    <parameter name="since"
+               description="Only commits after this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ" />
+    <parameter name="until"
+               description="Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ" />
     <sequence>
-        <property
-                expression="$func:owner"
-                name="uri.var.owner"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:repo"
-                name="uri.var.repo"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:sha"
-                name="uri.var.sha"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:path"
-                name="uri.var.path"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:author"
-                name="uri.var.author"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:since"
-                name="uri.var.since"
-                scope="default"
-                type="STRING"/>
-        <property
-                expression="$func:until"
-                name="uri.var.until"
-                scope="default"
-                type="STRING"/>
-        <property
-                name="uri.var.urlQuery"
-                scope="default"
-                type="STRING"
-                value=""/>
+        <property expression="$func:owner" name="uri.var.owner"
+                  scope="default" type="STRING" />
+        <property expression="$func:repo" name="uri.var.repo" scope="default"
+                  type="STRING" />
+        <property expression="$func:sha" name="uri.var.sha" scope="default"
+                  type="STRING" />
+        <property expression="$func:path" name="uri.var.path" scope="default"
+                  type="STRING" />
+        <property expression="$func:author" name="uri.var.author"
+                  scope="default" type="STRING" />
+        <property expression="$func:since" name="uri.var.since"
+                  scope="default" type="STRING" />
+        <property expression="$func:until" name="uri.var.until"
+                  scope="default" type="STRING" />
+        <property name="uri.var.urlQuery" scope="default" type="STRING"
+                  value="" />
         <script language="js">
             <![CDATA[var sha = mc.getProperty("uri.var.sha");
-                var path = mc.getProperty("uri.var.path"); 
+                var path = mc.getProperty("uri.var.path");
                 var author = mc.getProperty("uri.var.author");
-                var since = mc.getProperty("uri.var.since"); 
-                var until = mc.getProperty("uri.var.until"); 
+                var since = mc.getProperty("uri.var.since");
+                var until = mc.getProperty("uri.var.until");
                 var urlQuery = "";
-                               
+
                   // constructing the optional url parameters
                   if (sha!=null && sha!= ""){
                      urlQuery+='sha='+ sha +'&';
@@ -118,9 +83,8 @@
                   mc.setProperty('uri.var.urlQuery', urlQuery);]]></script>
         <call>
             <endpoint>
-                <http method="get"
-                      trace="disable"
-                      uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/commits{+uri.var.urlQuery}"/>
+                <http method="get" trace="disable"
+                      uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/commits{+uri.var.urlQuery}" />
             </endpoint>
         </call>
     </sequence>
