@@ -32,7 +32,7 @@
                 <call>
                     <endpoint>
                         <http method="get" trace="disable"
-                              uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/commits?type={+uri.var.type}" />
+                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos?type={+uri.var.type}" />
                     </endpoint>
                 </call>
             </then>
