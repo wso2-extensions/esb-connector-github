@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~    http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+
+<template name="listOrganizationRepositories" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="org" description="Name of the organization" />
+    <parameter name="type"
+               description="Type of the repositories.Can be one of all, public, private, forks, sources, member. Default: all" />
+    <sequence>
+        <property expression="$func:org" name="uri.var.org" scope="default"
+                  type="STRING" />
+        <property expression="$func:type" name="uri.var.type" scope="default"
+                  type="STRING" />
+        <!-- type header will be set, if provided by the user -->
+        <filter regex="true" source="boolean(get-property('uri.var.type'))">
+            <then>
+                <call>
+                    <endpoint>
+                        <http method="get" trace="disable"
+                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos?type={+uri.var.type}" />
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="get" trace="disable"
+                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos" />
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>
