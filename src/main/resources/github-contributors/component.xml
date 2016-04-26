@@ -17,19 +17,11 @@
 ~  under the License.
 -->
 
-<connector>
-    <component name="github" package="org.wso2.carbon.connector">
-        <dependency component="github-config"/>
-        <dependency component="github-gitdata"/>
-        <dependency component="github-issues"/>
-        <dependency component="github-pullrequests"/>
-        <dependency component="github-search"/>
-        <dependency component="github-users"/>
-        <dependency component="github-repositories"/>
-        <dependency component="github-activity"/>
-        <dependency component="github-commits"/>
-        <dependency component="github-contributors"/>
-        <description>github connector libraries</description>
-    </component>
-    <icon>icon/icon-small.gif</icon>
-</connector>
+<component name="github-contributors" type="synapse/template">
+    <subComponents>
+        <component name="listContributors">
+            <file>listContributors.xml</file>
+            <description>Get the contributor list of specified repository</description>
+        </component>
+    </subComponents>
+</component>

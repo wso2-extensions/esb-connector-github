@@ -30,6 +30,8 @@
                description="Only commits after this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ" />
     <parameter name="until"
                description="Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ" />
+    <parameter name="page" description="Page number"/>
+    <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property expression="$func:owner" name="uri.var.owner"
                   scope="default" type="STRING" />
@@ -45,6 +47,10 @@
                   scope="default" type="STRING" />
         <property expression="$func:until" name="uri.var.until"
                   scope="default" type="STRING" />
+        <property expression="$func:page" name="uri.var.page"
+                  scope="default" type="STRING"/>
+        <property expression="$func:perPage" name="uri.var.perPage"
+                  scope="default" type="STRING"/>
         <property name="uri.var.urlQuery" scope="default" type="STRING"
                   value="" />
         <script language="js">
@@ -53,6 +59,8 @@
                 var author = mc.getProperty("uri.var.author");
                 var since = mc.getProperty("uri.var.since");
                 var until = mc.getProperty("uri.var.until");
+                var page = mc.getProperty("uri.var.page");
+                var perPage = mc.getProperty("uri.var.perPage");
                 var urlQuery = "";
 
                   // constructing the optional url parameters
@@ -74,6 +82,14 @@
 
                   if (until!=null && until!= ""){
                      urlQuery+='until='+ until +'&';
+                  }
+
+                  if (page!=null && page!= ""){
+                     urlQuery+='page='+ page +'&';
+                  }
+
+                  if (perPage!=null && perPage!= ""){
+                     urlQuery+='per_page='+ perPage +'&';
                   }
 
                   if(urlQuery!=""){

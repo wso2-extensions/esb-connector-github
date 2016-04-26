@@ -21,29 +21,45 @@
     <parameter name="org" description="Name of the organization" />
     <parameter name="type"
                description="Type of the repositories.Can be one of all, public, private, forks, sources, member. Default: all" />
+    <parameter name="page" description="Page number"/>
+    <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property expression="$func:org" name="uri.var.org" scope="default"
                   type="STRING" />
         <property expression="$func:type" name="uri.var.type" scope="default"
                   type="STRING" />
-        <!-- type header will be set, if provided by the user -->
-        <filter regex="true" source="boolean(get-property('uri.var.type'))">
-            <then>
-                <call>
-                    <endpoint>
-                        <http method="get" trace="disable"
-                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos?type={+uri.var.type}" />
-                    </endpoint>
-                </call>
-            </then>
-            <else>
-                <call>
-                    <endpoint>
-                        <http method="get" trace="disable"
-                              uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos" />
-                    </endpoint>
-                </call>
-            </else>
-        </filter>
+        <property expression="$func:page" name="uri.var.page"
+                  scope="default" type="STRING"/>
+        <property expression="$func:perPage" name="uri.var.perPage"
+                  scope="default" type="STRING"/>
+        <property name="uri.var.urlQuery" scope="default" type="STRING" value=""/>
+        <script language="js"><![CDATA[var type = mc.getProperty("uri.var.type");
+                var page = mc.getProperty("uri.var.page");
+                var urlQuery = "";
+                 var perPage = mc.getProperty("uri.var.perPage");
+
+                  // constructing the optional url parameters
+                  if (type!=null && type!= ""){
+                     urlQuery+='type='+ type +'&';
+                  }
+
+                  if (page!=null && page!= ""){
+                     urlQuery+='page=' + page + '&';
+                  }
+                  
+                   if (perPage!=null && perPage!= ""){
+                     urlQuery+='per_page='+ perPage +'&';
+                  }
+
+                  if(urlQuery!=""){
+                     urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
+                  }
+
+                  mc.setProperty('uri.var.urlQuery', urlQuery);]]></script>
+        <call>
+            <endpoint>
+                <http method="get" trace="disable" uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
     </sequence>
 </template>
