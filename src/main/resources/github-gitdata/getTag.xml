@@ -17,24 +17,19 @@
 -->
 
 <template name="getTag" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="owner" description="The owner of the repository."/>
     <parameter name="repo" description="The name of the repository."/>
     <parameter name="sha" description="The sha value of the tag."/>
-
     <sequence>
-
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
         <property name="uri.var.sha" expression="$func:sha"/>
-
         <call>
             <endpoint>
                 <http method="get"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/git/tags/{+uri.var.sha}"/>
             </endpoint>
         </call>
-
         <!-- Remove response custom header information -->
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>

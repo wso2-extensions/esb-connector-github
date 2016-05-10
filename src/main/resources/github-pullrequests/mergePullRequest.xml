@@ -17,19 +17,15 @@
 -->
 
 <template name="mergePullRequest" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="owner" description="The owner of the repository."/>
     <parameter name="repo" description="The corresponding repository."/>
     <parameter name="number" description="The pull request number."/>
     <parameter name="commitMessage" description="The commitMessage."/>
-
     <sequence>
-
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
         <property name="uri.var.number" expression="$func:number"/>
         <property name="uri.var.commitMessage" expression="$func:commitMessage"/>
-
         <payloadFactory media-type="json">
             <format>
                 {
@@ -40,16 +36,13 @@
                 <arg expression="get-property('uri.var.commitMessage')"/>
             </args>
         </payloadFactory>
-
         <property name="DISABLE_CHUNKING" scope="axis2" value="true"/>
-
         <call>
             <endpoint>
                 <http method="put"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/pulls/{+uri.var.number}/merge"/>
             </endpoint>
         </call>
-
         <!-- Remove response custom header information -->
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
@@ -66,6 +59,5 @@
         <header name="Vary" scope="transport" action="remove"/>
         <header name="X-RateLimit-Limit" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
-
     </sequence>
 </template>

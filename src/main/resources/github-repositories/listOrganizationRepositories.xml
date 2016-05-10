@@ -18,16 +18,16 @@
 -->
 
 <template name="listOrganizationRepositories" xmlns="http://ws.apache.org/ns/synapse">
-    <parameter name="org" description="Name of the organization" />
+    <parameter name="org" description="Name of the organization"/>
     <parameter name="type"
-               description="Type of the repositories.Can be one of all, public, private, forks, sources, member. Default: all" />
+               description="Type of the repositories.Can be one of all, public, private, forks, sources, member. Default: all"/>
     <parameter name="page" description="Page number"/>
     <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property expression="$func:org" name="uri.var.org" scope="default"
-                  type="STRING" />
+                  type="STRING"/>
         <property expression="$func:type" name="uri.var.type" scope="default"
-                  type="STRING" />
+                  type="STRING"/>
         <property expression="$func:page" name="uri.var.page"
                   scope="default" type="STRING"/>
         <property expression="$func:perPage" name="uri.var.perPage"
@@ -58,7 +58,8 @@
                   mc.setProperty('uri.var.urlQuery', urlQuery);]]></script>
         <call>
             <endpoint>
-                <http method="get" trace="disable" uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos{+uri.var.urlQuery}"/>
+                <http method="get" trace="disable"
+                      uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}/repos{+uri.var.urlQuery}"/>
             </endpoint>
         </call>
     </sequence>

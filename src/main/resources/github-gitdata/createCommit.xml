@@ -17,7 +17,6 @@
 -->
 
 <template name="createCommit" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="message" description="The commit message."/>
     <parameter name="parents" description="The SHAs of the commits that were the parents of this commit."/>
     <parameter name="author" description="A hash containing information about the author of the commit"/>
@@ -31,9 +30,7 @@
     <parameter name="ref" description="The name of the fully qualified reference."/>
     <parameter name="force"
                description="Indicates whether to force the update or to make sure the update is a fast-forward update."/>
-
     <sequence>
-
         <property name="uri.var.message" expression="$func:message"/>
         <property name="uri.var.parents" expression="$func:parents"/>
         <property name="uri.var.author" expression="$func:author"/>
@@ -45,7 +42,6 @@
         <property name="uri.var.createOrUpdateReference" expression="$func:createOrUpdateReference"/>
         <property name="uri.var.ref" expression="$func:ref"/>
         <property name="uri.var.force" expression="$func:force"/>
-
         <!-- Calling the createTree method -->
         <payloadFactory media-type="json">
             <format>
@@ -57,18 +53,18 @@
                 <arg expression="get-property('uri.var.tree')"/>
             </args>
         </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                var baseTree=mc.getProperty('uri.var.baseTree');
+                payload = mc.getPayloadJSON();
 
-        <script language="js"><![CDATA[
+                if(baseTree != null && baseTree != ""){
+                    payload.base_tree = baseTree;
+                }
 
-        var baseTree=mc.getProperty('uri.var.baseTree');
-        payload = mc.getPayloadJSON();
-
-        if(baseTree != null && baseTree != ""){
-            payload.base_tree = baseTree;
-        }
-
-        mc.setPayloadJSON(payload);
-        ]]></script>
+                mc.setPayloadJSON(payload);
+        ]]>
+        </script>
 
         <call>
             <endpoint>
@@ -76,11 +72,9 @@
                       uri-template="{uri.var.apiUrl}/repos/{uri.var.owner}/{uri.var.repo}/git/trees"/>
             </endpoint>
         </call>
-
         <!-- tree sha and the complete output derived from the createTree api call -->
         <property name="uri.var.treeSha" expression="json-eval($.sha)"/>
         <property name="uri.var.treeOutput" expression="json-eval($)"/>
-
         <!-- Removing unnecessary headers -->
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
@@ -98,14 +92,12 @@
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Access-Control-Allow-Origin" scope="transport" action="remove"/>
-
         <filter source="get-property('transport','Status')" regex="(?!^201 Created$).*">
             <then>
                 <header name="Status" scope="transport" action="remove"/>
                 <respond></respond>
             </then>
         </filter>
-
         <!-- Removing unnecessary headers before the createCommit method call -->
         <header name="Cache-Control" scope="transport" action="remove"/>
         <header name="Content-Length" scope="transport" action="remove"/>
@@ -115,13 +107,11 @@
         <header name="Location" scope="transport" action="remove"/>
         <header name="Server" scope="transport" action="remove"/>
         <header name="Status" scope="transport" action="remove"/>
-
         <!-- Calling the reference update/delete method based on the uri.var.createOrUpdateReference
             property value -->
         <header name="Authorization"
                 expression="fn:concat('token ', get-property('uri.var.accessToken'))"
                 scope="transport"/>
-
         <payloadFactory media-type="json">
             <format>
                 {
@@ -136,7 +126,6 @@
                 <arg expression="get-property('uri.var.parents')"/>
             </args>
         </payloadFactory>
-
         <script language="js"><![CDATA[
         var author=mc.getProperty('uri.var.author');
         var commiter=mc.getProperty('uri.var.commiter');
@@ -151,20 +140,16 @@
         }
         mc.setPayloadJSON(payload);
         ]]></script>
-
-
         <call>
             <endpoint>
                 <http method="post"
                       uri-template="{uri.var.apiUrl}/repos/{uri.var.owner}/{uri.var.repo}/git/commits"/>
             </endpoint>
         </call>
-
         <!-- complete output and the commit sha derived from the createTree method
             call -->
         <property name="uri.var.commitSha" expression="json-eval($.sha)"/>
         <property name="uri.var.commitOutput" expression="json-eval($)"/>
-
         <!-- Removing unnecessary headers -->
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
@@ -182,10 +167,8 @@
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Access-Control-Allow-Origin" scope="transport" action="remove"/>
-
         <filter source="get-property('transport','Status')" regex="(?!^201 Created$).*">
             <then>
-
                 <payloadFactory media-type="json">
                     <format>
                         {
@@ -202,7 +185,6 @@
                 <respond></respond>
             </then>
         </filter>
-
         <!-- Removing unnecessary headers before the reference update/create call -->
         <header name="Cache-Control" scope="transport" action="remove"/>
         <header name="Content-Length" scope="transport" action="remove"/>
@@ -212,13 +194,11 @@
         <header name="Location" scope="transport" action="remove"/>
         <header name="Server" scope="transport" action="remove"/>
         <header name="Status" scope="transport" action="remove"/>
-
         <!-- Calling the reference update/delete method based on the uri.var.createOrUpdateReference
             property value -->
         <header name="Authorization"
                 expression="fn:concat('token ', get-property('uri.var.accessToken'))"
                 scope="transport"/>
-
         <filter source="get-property('uri.var.createOrUpdateReference')"
                 regex="create">
             <then>
@@ -234,7 +214,6 @@
                         <arg expression="get-property('uri.var.commitSha')"/>
                     </args>
                 </payloadFactory>
-
                 <call>
                     <endpoint>
                         <http method="post"
@@ -257,7 +236,6 @@
                         <arg expression="get-property('uri.var.force')"/>
                     </args>
                 </payloadFactory>
-
                 <call>
                     <endpoint>
                         <http method="post"
@@ -290,7 +268,6 @@
         </filter>
         <!-- complete output of reference update or create -->
         <property name="uri.var.referenceOutput" expression="json-eval($)"/>
-
         <!-- Removing unnecessary headers after the reference update/create call -->
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
@@ -308,7 +285,6 @@
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Access-Control-Allow-Origin" scope="transport" action="remove"/>
-
         <payloadFactory media-type="json">
             <format>
                 {
@@ -323,6 +299,5 @@
                 <arg expression="get-property('uri.var.referenceOutput')"/>
             </args>
         </payloadFactory>
-
     </sequence>
 </template>

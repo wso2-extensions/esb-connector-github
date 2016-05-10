@@ -1,6 +1,6 @@
 {
-"apiUrl":"%s(githubApiUrl)",
-"accessToken":"%s(accessToken)",
-"mediaType":"%s(mediaType)",
-"user":"qwe654qwe"
+  "apiUrl": "%s(githubApiUrl)",
+  "accessToken": "%s(accessToken)",
+  "mediaType": "%s(mediaType)",
+  "user": "qwe654qwe"
 }

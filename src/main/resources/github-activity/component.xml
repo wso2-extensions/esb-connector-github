@@ -27,5 +27,13 @@
             <file>getRepositoryNotifications.xml</file>
             <description>Get a specific repository notifications.</description>
         </component>
+        <component name="getFeeds">
+            <file>getFeeds.xml</file>
+            <description>GitHub provides several timeline resources in Atom format.</description>
+        </component>
+        <component name="getRepositoryEvents">
+            <file>getRepositoryEvents.xml</file>
+            <description>Repository issue events have a different format than other events</description>
+        </component>
     </subComponents>
 </component>

@@ -1,10 +1,10 @@
 {
-"apiUrl":"%s(githubApiUrl)",
-"accessToken":"%s(accessToken)",
-"mediaType":"%s(mediaType)",
-"owner":"%s(owner)",
-"repo":"%s(repo)",
-"tree":[
+  "apiUrl": "%s(githubApiUrl)",
+  "accessToken": "%s(accessToken)",
+  "mediaType": "%s(mediaType)",
+  "owner": "%s(owner)",
+  "repo": "%s(repo)",
+  "tree": [
     {
       "path": "sarindupNewFile.txt",
       "mode": "100644",
@@ -12,13 +12,13 @@
       "sha": "%s(blobSHA)"
     }
   ],
-"message":"%s(commitMessage)",
-"parents":[],
-"author": {
+  "message": "%s(commitMessage)",
+  "parents": [],
+  "author": {
     "name": "Scott my",
     "email": "schacon@gmail.com",
     "date": "2008-07-09T16:13:30+12:00"
   },
-"createOrUpdateReference":"create",
-"ref":"%s(ref)" 
+  "createOrUpdateReference": "create",
+  "ref": "%s(ref)"
 }

@@ -1,5 +1,5 @@
 {
-"base":"%s(baseOptional)",
-"head":"%s(headOptional)",
-"commitMessage":"%s(commitMessage)"
+  "base": "%s(baseOptional)",
+  "head": "%s(headOptional)",
+  "commitMessage": "%s(commitMessage)"
 }

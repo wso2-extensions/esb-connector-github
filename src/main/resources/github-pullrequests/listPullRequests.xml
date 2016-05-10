@@ -17,7 +17,6 @@
 -->
 
 <template name="listPullRequests" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="owner" description="The owner of the repository."/>
     <parameter name="repo" description="The corresponding repository."/>
     <parameter name="state" description="State of the pull request."/>
@@ -25,7 +24,6 @@
     <parameter name="base" description="Filter pulls by base branch name."/>
     <parameter name="sort" description="What to sort results by."/>
     <parameter name="direction" description="The direction of the sorting."/>
-
     <sequence>
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
@@ -70,15 +68,14 @@
                 mc.setProperty('uri.var.urlQuery', urlQuery);
                 }
 
-    ]]></script>
-
+                 ]]>
+        </script>
         <call>
             <endpoint>
                 <http method="get"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/pulls{+uri.var.urlQuery}"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
@@ -94,6 +91,5 @@
         <header name="X-RateLimit-Limit" scope="transport" action="remove"/>
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
-
     </sequence>
 </template>
