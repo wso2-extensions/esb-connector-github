@@ -23,8 +23,8 @@
             <file>getMembersList.xml</file>
             <description>List all users who are members of an organization.</description>
         </component>
-        <component name="AddMembership">
-            <file>AddMembership.xml</file>
+        <component name="addMembership">
+            <file>addMembership.xml</file>
             <description>To add someone as a member to an organization.</description>
         </component>
         <component name="checkMembership">

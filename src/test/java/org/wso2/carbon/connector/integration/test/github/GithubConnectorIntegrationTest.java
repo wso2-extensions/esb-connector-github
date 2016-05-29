@@ -1010,7 +1010,7 @@ public class GithubConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * Positive test case for getOrganization method with mandatory parameters.
      */
     @Test(priority = 1, description = "github {getOrganization} integration test with mandatory parameters.")
-    public void testgetOrganizationWithMandatoryParameters() throws IOException, JSONException {
+    public void testGetOrganizationWithMandatoryParameters() throws IOException, JSONException {
         esbRequestHeadersMap.put("Action", "urn:getOrganization");
         RestResponse<JSONObject> esbRestResponse = sendJsonRestRequest(proxyUrl, "POST",
                 esbRequestHeadersMap, "esb_getOrganization_mandatory.json");
@@ -1025,12 +1025,12 @@ public class GithubConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * Positive test case for getMembersList method with mandatory parameters.
      */
     @Test(priority = 1, description = "github {getMembersList} integration test with mandatory parameters.")
-    public void testgetMembersListWithMandatoryParameters() throws IOException, JSONException {
+    public void testGetMembersListWithMandatoryParameters() throws IOException, JSONException {
         esbRequestHeadersMap.put("Action", "urn:getMembersList");
         RestResponse<JSONObject> esbRestResponse = sendJsonRestRequest(proxyUrl, "POST",
                 esbRequestHeadersMap, "esb_getMembersList_mandatory.json");
         String apiEndPoint = connectorProperties.getProperty("githubApiUrl") + "/orgs/"
-                + connectorProperties.getProperty("org")+"/members";
+                + connectorProperties.getProperty("org") + "/members";
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), esbRestResponse.getHttpStatusCode());

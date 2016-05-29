@@ -16,7 +16,7 @@
  ~  under the License.
 -->
 
-<template name="AddMembership" xmlns="http://ws.apache.org/ns/synapse">
+<template name="addMembership" xmlns="http://ws.apache.org/ns/synapse">
 
     <parameter name="org" description="The name of the organization."/>
     <parameter name="role" description="The role to give the user in the organization."/>
