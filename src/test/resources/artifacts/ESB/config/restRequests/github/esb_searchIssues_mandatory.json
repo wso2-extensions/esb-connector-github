@@ -1,5 +1,5 @@
 {
-"apiUrl":"%s(githubApiUrl)",
-"accessToken":"%s(accessToken)",
-"q":"user:%s(owner)"
+  "apiUrl": "%s(githubApiUrl)",
+  "accessToken": "%s(accessToken)",
+  "q": "user:%s(owner)"
 }

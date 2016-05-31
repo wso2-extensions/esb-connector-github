@@ -17,24 +17,19 @@
 -->
 
 <template name="listPullRequestCommits" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="owner" description="The owner of the repository."/>
     <parameter name="repo" description="The corresponding repository."/>
     <parameter name="number" description="The pull request number."/>
-
     <sequence>
-
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
         <property name="uri.var.number" expression="$func:number"/>
-
         <call>
             <endpoint>
                 <http method="get"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/pulls/{+uri.var.number}/commits"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
@@ -51,6 +46,5 @@
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Link" scope="transport" action="remove"/>
-
     </sequence>
 </template>

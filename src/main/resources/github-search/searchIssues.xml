@@ -21,9 +21,7 @@
     <parameter name="q" description="The search terms."/>
     <parameter name="sort" description="The sort field."/>
     <parameter name="order" description="The sort order if sort parameter is provided."/>
-
     <sequence>
-
         <property name="uri.var.q" expression="$func:q"/>
         <property name="uri.var.sort" expression="$func:sort"/>
         <property name="uri.var.order" expression="$func:order"/>
@@ -53,14 +51,13 @@
                 mc.setProperty('uri.var.urlQuery', urlQuery);
                 }
 
-    ]]></script>
-
+                ]]>
+        </script>
         <call>
             <endpoint>
                 <http method="get" uri-template="{+uri.var.apiUrl}/search/issues{+uri.var.urlQuery}"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
@@ -77,6 +74,5 @@
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Link" scope="transport" action="remove"/>
-
     </sequence>
 </template>

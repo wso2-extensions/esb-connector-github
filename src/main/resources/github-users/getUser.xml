@@ -17,19 +17,14 @@
 -->
 
 <template name="getUser" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="user" description="The name of user."/>
-
     <sequence>
-
         <property name="uri.var.user" expression="$func:user"/>
-
         <call>
             <endpoint>
                 <http method="get" uri-template="{+uri.var.apiUrl}/users/{+uri.var.user}"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
@@ -45,6 +40,5 @@
         <header name="X-RateLimit-Limit" scope="transport" action="remove"/>
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
-
     </sequence>
 </template>

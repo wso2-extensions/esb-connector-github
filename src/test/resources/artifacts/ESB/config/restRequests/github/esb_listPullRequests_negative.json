@@ -1,6 +1,6 @@
 {
-"apiUrl":"%s(githubApiUrl)",
-"accessToken":"%s(accessToken)",
-"owner":"Invalid",
-"repo":"%s(repo)"
+  "apiUrl": "%s(githubApiUrl)",
+  "accessToken": "%s(accessToken)",
+  "owner": "Invalid",
+  "repo": "%s(repo)"
 }

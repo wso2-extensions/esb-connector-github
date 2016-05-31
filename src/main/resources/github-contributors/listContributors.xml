@@ -18,23 +18,23 @@
 -->
 
 <template name="listContributors" xmlns="http://ws.apache.org/ns/synapse">
-	<parameter name="repo" description="Owner of the repository" />
-	<parameter name="owner" description="Name of the repository" />
-	<parameter name="anon"
-		description="Set to 1 or true to include anonymous contributors in results" />
-	<parameter name="page" description="Page number" />
-	<sequence>
-		<property expression="$func:repo" name="uri.var.repo" scope="default"
-			type="STRING" />
-		<property expression="$func:owner" name="uri.var.owner"
-			scope="default" type="STRING" />
-		<property expression="$func:anon" name="uri.var.anon" scope="default"
-			type="STRING" />
-		<property expression="$func:page" name="uri.var.page" scope="default"
-			type="STRING" />
-		<property name="uri.var.urlQuery" scope="default" type="STRING"
-			value="" />
-		<script language="js"><![CDATA[var repo = mc.getProperty("uri.var.repo");
+    <parameter name="repo" description="Owner of the repository"/>
+    <parameter name="owner" description="Name of the repository"/>
+    <parameter name="anon"
+               description="Set to 1 or true to include anonymous contributors in results"/>
+    <parameter name="page" description="Page number"/>
+    <sequence>
+        <property expression="$func:repo" name="uri.var.repo" scope="default"
+                  type="STRING"/>
+        <property expression="$func:owner" name="uri.var.owner"
+                  scope="default" type="STRING"/>
+        <property expression="$func:anon" name="uri.var.anon" scope="default"
+                  type="STRING"/>
+        <property expression="$func:page" name="uri.var.page" scope="default"
+                  type="STRING"/>
+        <property name="uri.var.urlQuery" scope="default" type="STRING"
+                  value=""/>
+        <script language="js"><![CDATA[var repo = mc.getProperty("uri.var.repo");
                 var owner = mc.getProperty("uri.var.owner"); 
                 var anon = mc.getProperty("uri.var.anon");
                 var page = mc.getProperty("uri.var.page");
@@ -54,11 +54,11 @@
                   }
 
                   mc.setProperty('uri.var.urlQuery', urlQuery);]]></script>
-		<call>
-			<endpoint>
-				<http method="get" trace="disable"
-					uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/contributors{+uri.var.urlQuery}" />
-			</endpoint>
-		</call>
-	</sequence>
+        <call>
+            <endpoint>
+                <http method="get" trace="disable"
+                      uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/contributors{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+    </sequence>
 </template>

@@ -49,17 +49,15 @@
                     payload.commit_message = commitMessage;
                 }
                  mc.setPayloadJSON(payload);
-    ]]></script>
-
+                ]]>
+        </script>
         <call>
             <endpoint>
                 <http method="post"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/merges"/>
             </endpoint>
         </call>
-
-        <header name="Access-Control-Expose-Headers" scope="transport"
-                action="remove"/>
+        <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
         <header name="X-RateLimit-Reset" scope="transport" action="remove"/>
@@ -75,6 +73,5 @@
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Link" scope="transport" action="remove"/>
-
     </sequence>
 </template>

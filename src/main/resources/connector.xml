@@ -27,8 +27,11 @@
         <dependency component="github-users"/>
         <dependency component="github-repositories"/>
         <dependency component="github-activity"/>
+        <dependency component="github-statistics"/>
         <dependency component="github-commits"/>
         <dependency component="github-contributors"/>
+        <dependency component="github-organization"/>
+        <dependency component="github-organization-members"/>
         <description>github connector libraries</description>
     </component>
     <icon>icon/icon-small.gif</icon>

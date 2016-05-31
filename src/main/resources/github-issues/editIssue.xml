@@ -17,7 +17,6 @@
 -->
 
 <template name="editIssue" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="owner" description="The owner of the repository having the specified issue."/>
     <parameter name="repo" description="The repository to retrieve issue from."/>
     <parameter name="number" description="The issue number."/>
@@ -27,9 +26,7 @@
     <parameter name="state" description="State of the issue."/>
     <parameter name="milestone" description="Milestone to associate this issue with."/>
     <parameter name="labels" description="Labels to associate with this issue."/>
-
     <sequence>
-
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
         <property name="uri.var.number" expression="$func:number"/>
@@ -39,7 +36,6 @@
         <property name="uri.var.state" expression="$func:state"/>
         <property name="uri.var.milestone" expression="$func:milestone"/>
         <property name="uri.var.labels" expression="$func:labels"/>
-
         <payloadFactory media-type="json">
             <format>
                 {}
@@ -47,7 +43,6 @@
             <args>
             </args>
         </payloadFactory>
-
         <script language="js">
             <![CDATA[
                 payload = mc.getPayloadJSON();               
@@ -85,16 +80,13 @@
                  mc.setPayloadJSON(payload);
                ]]>
         </script>
-
         <property name="DISABLE_CHUNKING" scope="axis2" value="true"/>
-
         <call>
             <endpoint>
                 <http method="patch"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/issues/{+uri.var.number}"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
@@ -110,6 +102,5 @@
         <header name="X-RateLimit-Limit" scope="transport" action="remove"/>
         <header name="Access-Control-Allow-Credentials" scope="transport" action="remove"/>
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
-
     </sequence>
 </template>

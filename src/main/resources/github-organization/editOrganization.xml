@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~    http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+
+<template name="editOrganization" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="org" description="Name of the organization"/>
+    <parameter name="billing_email" description="Billing email address. This address is not publicized."/>
+    <parameter name="company" description="The company name."/>
+    <parameter name="email" description="The publicly visible email address."/>
+    <parameter name="location" description="The location."/>
+    <parameter name="name" description="The shorthand name of the company."/>
+    <parameter name="description" description="The description of the company."/>
+    <sequence>
+        <property expression="$func:org" name="uri.var.org" scope="default" type="STRING"/>
+        <property expression="$func:billing_email" name="uri.var.billing_email" scope="default" type="STRING"/>
+        <property expression="$func:company" name="uri.var.company" scope="default" type="STRING"/>
+        <property expression="$func:email" name="uri.var.email" scope="default" type="STRING"/>
+        <property expression="$func:location" name="uri.var.location" scope="default" type="STRING"/>
+        <property expression="$func:name" name="uri.var.name" scope="default" type="STRING"/>
+        <property expression="$func:description" name="uri.var.description" scope="default" type="STRING"/>
+        <payloadFactory media-type="json">
+            <format>
+                {}
+            </format>
+            <args>
+            </args>
+        </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                payload = mc.getPayloadJSON();
+                var billing_email = mc.getProperty("uri.var.billing_email");
+                var company = mc.getProperty("uri.var.company");
+                var email = mc.getProperty("uri.var.email");
+                var location = mc.getProperty("uri.var.location");
+                var description = mc.getProperty("uri.var.description");
+
+                 if(billing_email != null && billing_email != ""){
+                    payload.billing_email = billing_email;
+                }
+
+                if(company != null && company != ""){
+                    payload.company = company;
+                }
+
+                if(email != null && email != ""){
+                    payload.email = email;
+                }
+
+                if(location != null && location != ""){
+                    payload.location = location;
+                }
+
+                if(description != null && description != ""){
+                    payload.description = description;
+                }
+
+                 mc.setPayloadJSON(payload);
+               ]]>
+        </script>
+        <property name="DISABLE_CHUNKING" scope="axis2" value="true"/>
+        <call>
+            <endpoint>
+                <http method="patch" trace="disable"
+                      uri-template="{+uri.var.apiUrl}/orgs/{+uri.var.org}{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+    </sequence>
+</template>

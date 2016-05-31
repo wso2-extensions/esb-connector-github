@@ -22,14 +22,11 @@
     <parameter name="repo" description="The corresponding repository."/>
     <parameter name="content" description="The content of the blob."/>
     <parameter name="encoding" description="The encoding type."/>
-
     <sequence>
-
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
         <property name="uri.var.content" expression="$func:content"/>
         <property name="uri.var.encoding" expression="$func:encoding"/>
-
         <payloadFactory media-type="json">
             <format>
                 {
@@ -56,14 +53,12 @@
                  mc.setPayloadJSON(payload);
                ]]>
         </script>
-
         <call>
             <endpoint>
                 <http method="post"
                       uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/git/blobs"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>

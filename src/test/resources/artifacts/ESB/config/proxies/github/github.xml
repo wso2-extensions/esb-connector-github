@@ -61,6 +61,7 @@
             <property name="since" expression="json-eval($.since)"/>
             <property name="all" expression="json-eval($.all)"/>
             <property name="participating" expression="json-eval($.participating)"/>
+            <property name="org" expression="json-eval($.org)"/>
 
             <github.init>
                 <accessToken>{$ctx:accessToken}</accessToken>
@@ -295,6 +296,27 @@
                     </github.getRepositoryNotifications>
                 </case>
 
+                <case regex="urn:getRepositoryEvents">
+                    <github.getRepositoryEvents>
+                        <repo>{$ctx:repo}</repo>
+                        <owner>{$ctx:owner}</owner>
+                    </github.getRepositoryEvents>
+                </case>
+                <case regex="urn:getOrganization">
+                    <github.getOrganization>
+                        <org>{$ctx:org}</org>
+                    </github.getOrganization>
+                </case>
+
+                <case regex="urn:getFeeds">
+                    <github.getFeeds/>
+                </case>
+
+                <case regex="urn:getMembersList">
+                    <github.getMembersList>
+                        <org>{$ctx:org}</org>
+                    </github.getMembersList>
+                </case>
             </switch>
 
             <respond/>

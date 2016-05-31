@@ -17,18 +17,17 @@
 -->
 
 <template name="getNotifications" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="all" description="If true, show notifications marked as read. Default: false."/>
     <parameter name="participating"
-               description="If true, only shows notifications in which the user is directly participating or mentioned. Default: false."/>
+               description="If true, only shows notifications in which the user is directly participating or mentioned.
+               Default: false."/>
     <parameter name="since"
-               description="Filters out any notifications updated before the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Default: Time.now."/>
-
+               description="Filters out any notifications updated before the given time.
+               This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Default: Time.now."/>
     <sequence>
         <property name="uri.var.all" expression="$func:all"/>
         <property name="uri.var.participating" expression="$func:participating"/>
         <property name="uri.var.since" expression="$func:since"/>
-
         <script language="js">
             <![CDATA[
                     var all = mc.getProperty('uri.var.all');
@@ -51,16 +50,13 @@
 
                         mc.setProperty('uri.var.urlQuery', urlQuery);
                     }
-
             ]]>
         </script>
-
         <call>
             <endpoint>
                 <http method="get" uri-template="{+uri.var.apiUrl}/notifications{+uri.var.urlQuery}"/>
             </endpoint>
         </call>
-
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>
         <header name="X-XSS-Protection" scope="transport" action="remove"/>
@@ -78,6 +74,5 @@
         <header name="Content-Security-Policy" scope="transport" action="remove"/>
         <header name="Link" scope="transport" action="remove"/>
         <header name="X-Poll-Interval" scope="transport" action="remove"/>
-
     </sequence>
 </template>
