@@ -34,7 +34,6 @@
                     var participating = mc.getProperty('uri.var.participating');
                     var since = mc.getProperty('uri.var.since');                    
                     var urlQuery = "";
-                    
                     if (all != null && all !="" ){
                         urlQuery += 'all=' + all + '&';
                     }                                       					           
@@ -45,9 +44,7 @@
                         urlQuery += 'since=' + since + '&';
                     }
                     if (urlQuery != ""){
-
-                        urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
-
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
                         mc.setProperty('uri.var.urlQuery', urlQuery);
                     }
             ]]>

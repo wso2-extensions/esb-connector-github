@@ -61,11 +61,9 @@
                 if(baseTree != null && baseTree != ""){
                     payload.base_tree = baseTree;
                 }
-
                 mc.setPayloadJSON(payload);
         ]]>
         </script>
-
         <call>
             <endpoint>
                 <http method="post"
@@ -129,9 +127,7 @@
         <script language="js"><![CDATA[
         var author=mc.getProperty('uri.var.author');
         var commiter=mc.getProperty('uri.var.commiter');
-
         payload = mc.getPayloadJSON();
-
         if(author != null && author != ""){
             payload.author = eval("("+ author +")");
         }

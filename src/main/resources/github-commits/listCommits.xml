@@ -62,40 +62,31 @@
                 var page = mc.getProperty("uri.var.page");
                 var perPage = mc.getProperty("uri.var.perPage");
                 var urlQuery = "";
-
                   // constructing the optional url parameters
                   if (sha!=null && sha!= ""){
                      urlQuery+='sha='+ sha +'&';
                   }
-
                   if (path!=null && path!= ""){
                      urlQuery+='path=' + path + '&';
                   }
-
                   if (author!=null && author!= ""){
                      urlQuery+='author='+ author +'&';
                   }
-
                   if (since!=null && since!= ""){
                      urlQuery+='since='+ since +'&';
                   }
-
                   if (until!=null && until!= ""){
                      urlQuery+='until='+ until +'&';
                   }
-
                   if (page!=null && page!= ""){
                      urlQuery+='page='+ page +'&';
                   }
-
                   if (perPage!=null && perPage!= ""){
                      urlQuery+='per_page='+ perPage +'&';
                   }
-
                   if(urlQuery!=""){
-                     urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
+                     urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
                   }
-
                   mc.setProperty('uri.var.urlQuery', urlQuery);]]></script>
         <call>
             <endpoint>

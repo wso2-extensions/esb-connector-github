@@ -44,7 +44,6 @@
         <property name="uri.var.urlQuery" value=""/>
         <script language="js">
             <![CDATA[
-               
                 var milestone = mc.getProperty("uri.var.milestone");
                 var state = mc.getProperty("uri.var.state"); 
                 var assignee = mc.getProperty("uri.var.assignee");
@@ -53,60 +52,48 @@
                 var labels = mc.getProperty("uri.var.labels"); 
                 var sort = mc.getProperty("uri.var.sort"); 
                 var direction = mc.getProperty("uri.var.direction"); 
-                var since = mc.getProperty("uri.var.since"); 
-                
+                var since = mc.getProperty("uri.var.since");
                 var urlQuery = "";
-                               
                   // constructing the optional url parameters 
                   // milestone must be a number of a milestone or '*' or 'none' thus url encoding is not required                                                                                                                                                    
                   if (milestone!=null && milestone!= ""){
                      urlQuery+='milestone='+ milestone +'&';
                   }
-                  
                   //state should be 'open', 'closed' or 'all' thus url encoding is not required
                   if (state!=null && state!= ""){
                      urlQuery+='state=' + state + '&';
                   }
-                  
                   //must be a valid username, '*' or 'none' thus url encoding is not required
                   if (assignee!=null && assignee!= ""){
                      urlQuery+='assignee='+ assignee +'&';
                   }
-                  
                   //must be the username of the user who created the issue thus url encoding is not required
                   if (creator!=null && creator!= ""){
                      urlQuery+='creator='+ creator +'&';
                   }
-                  
                   //must be a username that is mentioend in the issue thus url encoding is not required
                   if (mentioned!=null && mentioned!= ""){
                      urlQuery+='mentioned='+ mentioned +'&';
                   }
-                  
                   //A list of comma separated label names. may include special characters to url encode
                   if (labels!=null && labels!= ""){
                      urlQuery+='labels='+ labels +'&';
                   }
-                  
                   //can be either 'created','updated','comments' thus url encoding is not required
                   if (sort!=null && sort!= ""){
                      urlQuery+='sort='+ sort +'&';
-                  }                  
-
+                  }
                   //Can be either 'asc' or 'desc' thus url encoding is not required
                   if (direction!=null && direction!= ""){
                      urlQuery+='direction='+ direction +'&';
-                  }   
-                  
+                  }
                   //This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ thus url encoding is not required
                   if (since!=null && since!= ""){
                      urlQuery+='since='+ since +'&';
-                  }  
-
-                  if(urlQuery!=""){
-                     urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
                   }
-
+                  if(urlQuery!=""){
+                     urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                  }
                   mc.setProperty('uri.var.urlQuery', urlQuery);
                ]]>
         </script>
