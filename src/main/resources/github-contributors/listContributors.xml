@@ -39,20 +39,16 @@
                 var anon = mc.getProperty("uri.var.anon");
                 var page = mc.getProperty("uri.var.page");
                 var urlQuery = "";
-                               
                   // constructing the optional url parameters
                   if (anon!=null && anon!= ""){
                      urlQuery+='anon='+ anon +'&';
                   }
-
                   if (page!=null && page!= ""){
                      urlQuery+='page=' + page + '&';
                   }
-
                   if(urlQuery!=""){
                      urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
                   }
-
                   mc.setProperty('uri.var.urlQuery', urlQuery);]]></script>
         <call>
             <endpoint>

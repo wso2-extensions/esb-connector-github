@@ -17,7 +17,6 @@
 -->
 
 <template name="searchIssues" xmlns="http://ws.apache.org/ns/synapse">
-
     <parameter name="q" description="The search terms."/>
     <parameter name="sort" description="The sort field."/>
     <parameter name="order" description="The sort order if sort parameter is provided."/>
@@ -28,29 +27,23 @@
         <property name="uri.var.urlQuery" value=""/>
         <script language="js">
             <![CDATA[
-
                 var q = mc.getProperty('uri.var.q');
                 var sort = mc.getProperty('uri.var.sort');
                 var order = mc.getProperty('uri.var.order');
                 var urlQuery ="";
-
                 if(q != null && q != "") {
                     urlQuery += 'q=' + q + '&';
                 }
-
                 if(sort != null && sort != "") {
                     urlQuery += 'sort=' + sort + '&';
                 }
-
                 if(order != null && order != "") {
                     urlQuery += 'order=' + order + '&';
                 }
-
                 if(urlQuery!=""){
-                urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
+                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
                 mc.setProperty('uri.var.urlQuery', urlQuery);
                 }
-
                 ]]>
         </script>
         <call>
