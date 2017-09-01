@@ -20,28 +20,45 @@
     <parameter name="owner" description="The name of the owner of the repository."/>
     <parameter name="repo" description="The name of the repository."/>
     <parameter name="sort" description="The sort order. Can be either newest, oldest, or stargazers."/>
+    <parameter name="page" description="Page number"/>
+    <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
         <property name="uri.var.sort" expression="$func:sort"/>
-        <filter source="boolean(get-property('uri.var.sort'))" regex="true">
-            <then>
-                <call>
-                    <endpoint>
-                        <http method="get"
-                              uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/forks?sort={+uri.var.sort}"/>
-                    </endpoint>
-                </call>
-            </then>
-            <else>
-                <call>
-                    <endpoint>
-                        <http method="get"
-                              uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/forks"/>
-                    </endpoint>
-                </call>
-            </else>
-        </filter>
+        <property expression="$func:page" name="uri.var.page"/>
+        <property expression="$func:perPage" name="uri.var.perPage"/>
+        <script language="js">
+        <![CDATA[
+                var sort = mc.getProperty("uri.var.sort");
+                var page = mc.getProperty("uri.var.page");
+                var perPage = mc.getProperty("uri.var.perPage");
+                var urlQuery ="";
+
+                if (sort != null && sort != ""){
+                    urlQuery += 'sort=' + sort + '&';
+                }
+
+                if (page != null && page != ""){
+                    urlQuery += 'page=' + page + '&';
+                }
+
+                if (perPage != null && perPage != ""){
+                    urlQuery += 'per_page=' + perPage +'&';
+                }
+
+                if(urlQuery != ""){
+                    urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    mc.setProperty('uri.var.urlQuery', urlQuery);
+                }
+            ]]>
+        </script>
+        <call>
+            <endpoint>
+                <http method="get"
+                      uri-template="{+uri.var.apiUrl}/repos/{+uri.var.owner}/{+uri.var.repo}/forks{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
         <!-- Remove response custom header information -->
         <header name="Access-Control-Expose-Headers" scope="transport" action="remove"/>
         <header name="X-RateLimit-Remaining" scope="transport" action="remove"/>

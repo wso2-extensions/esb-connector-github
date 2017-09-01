@@ -29,6 +29,8 @@
     <parameter name="direction" description="The direction of the sort. Can be either asc or desc."/>
     <parameter name="since"
                description="Only issues updated at or after this time are returned.Follow ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."/>
+    <parameter name="page" description="Page number"/>
+    <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
@@ -42,6 +44,8 @@
         <property name="uri.var.direction" expression="$func:direction"/>
         <property name="uri.var.since" expression="$func:since"/>
         <property name="uri.var.urlQuery" value=""/>
+        <property expression="$func:page" name="uri.var.page"/>
+        <property expression="$func:perPage" name="uri.var.perPage"/>
         <script language="js">
             <![CDATA[
                 var milestone = mc.getProperty("uri.var.milestone");
@@ -53,6 +57,8 @@
                 var sort = mc.getProperty("uri.var.sort"); 
                 var direction = mc.getProperty("uri.var.direction"); 
                 var since = mc.getProperty("uri.var.since");
+                var page = mc.getProperty("uri.var.page");
+                var perPage = mc.getProperty("uri.var.perPage");
                 var urlQuery = "";
                   // constructing the optional url parameters 
                   // milestone must be a number of a milestone or '*' or 'none' thus url encoding is not required                                                                                                                                                    
@@ -90,6 +96,12 @@
                   //This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ thus url encoding is not required
                   if (since!=null && since!= ""){
                      urlQuery+='since='+ since +'&';
+                  }
+                  if (page != null && page != ""){
+                     urlQuery += 'page=' + page + '&';
+                  }
+                  if (perPage != null && perPage != ""){
+                     urlQuery += 'per_page=' + perPage +'&';
                   }
                   if(urlQuery!=""){
                      urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));

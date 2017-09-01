@@ -23,6 +23,7 @@
     <parameter name="anon"
                description="Set to 1 or true to include anonymous contributors in results"/>
     <parameter name="page" description="Page number"/>
+    <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property expression="$func:repo" name="uri.var.repo" scope="default"
                   type="STRING"/>
@@ -32,12 +33,14 @@
                   type="STRING"/>
         <property expression="$func:page" name="uri.var.page" scope="default"
                   type="STRING"/>
+        <property expression="$func:perPage" name="uri.var.perPage"/>
         <property name="uri.var.urlQuery" scope="default" type="STRING"
                   value=""/>
         <script language="js"><![CDATA[var repo = mc.getProperty("uri.var.repo");
                 var owner = mc.getProperty("uri.var.owner"); 
                 var anon = mc.getProperty("uri.var.anon");
                 var page = mc.getProperty("uri.var.page");
+                var perPage = mc.getProperty("uri.var.perPage");
                 var urlQuery = "";
                   // constructing the optional url parameters
                   if (anon!=null && anon!= ""){
@@ -45,6 +48,9 @@
                   }
                   if (page!=null && page!= ""){
                      urlQuery+='page=' + page + '&';
+                  }
+                  if (perPage != null && perPage != ""){
+                     urlQuery += 'per_page=' + perPage +'&';
                   }
                   if(urlQuery!=""){
                      urlQuery = '?' + urlQuery.substring(0,urlQuery.length-1);
