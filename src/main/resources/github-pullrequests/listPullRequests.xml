@@ -24,6 +24,8 @@
     <parameter name="base" description="Filter pulls by base branch name."/>
     <parameter name="sort" description="What to sort results by."/>
     <parameter name="direction" description="The direction of the sorting."/>
+    <parameter name="page" description="Page number"/>
+    <parameter name="perPage" description="Items per page"/>
     <sequence>
         <property name="uri.var.owner" expression="$func:owner"/>
         <property name="uri.var.repo" expression="$func:repo"/>
@@ -33,6 +35,8 @@
         <property name="uri.var.sort" expression="$func:sort"/>
         <property name="uri.var.direction" expression="$func:direction"/>
         <property name="uri.var.urlQuery" value=""/>
+        <property expression="$func:page" name="uri.var.page"/>
+        <property expression="$func:perPage" name="uri.var.perPage"/>
         <script language="js">
             <![CDATA[
 
@@ -41,6 +45,8 @@
                 var base = mc.getProperty('uri.var.base');
                 var sort = mc.getProperty('uri.var.sort');
                 var direction = mc.getProperty('uri.var.direction');
+                var page = mc.getProperty("uri.var.page");
+                var perPage = mc.getProperty("uri.var.perPage");
                 var urlQuery ="";
 
                 if(state != null && state != "") {
@@ -61,6 +67,14 @@
 
                 if(direction != null && direction != "") {
                     urlQuery += 'direction=' + direction + '&';
+                }
+
+                if (page != null && page != ""){
+                    urlQuery += 'page=' + page + '&';
+                }
+
+                if (perPage !=null && perPage != ""){
+                    urlQuery += 'per_page=' + perPage +'&';
                 }
 
                 if(urlQuery!=""){
