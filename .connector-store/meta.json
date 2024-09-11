@@ -4,7 +4,7 @@
     "category": "Developer Tools",
     "documentationUrl": "https://docs.wso2.com/display/ESBCONNECTORS/Github+Connector",
     "description": "The Github connector allows you to access the exposed Github API v3 through the WSO2 ESB. Github is a web-based hosting service for software development projects that facilitates powerful collaboration, code review, and code management for open source and private software development projects.",
-    "status": "Active",
+    "status": "Inactive",
     "labels": [
         "connector"
     ],
